@@ -1,11 +1,15 @@
-import dodo
+from base64 import b64encode
+from Crypto.PublicKey import RSA
+from Crypto.Util.randpool import RandomPool
 from fabric.api import *
 from fabric.operations import *
 from fabric.colors import green as _green
 from fabric.colors import yellow as _yellow
 from fabric.colors import red as _red
 from fabric.contrib.files import *
-import os.path
+
+import dodo
+import os
 import sys
 import time
 
@@ -18,6 +22,26 @@ def _always_run():
 def _dodo_servers():
     droplets = [d for d in conn.droplets() if d['name'] == droplet_name]
     return droplets
+
+def dodo_create_ssh_key():
+    #keystring = 'ssh-rsa %s ' % (b64key)
+
+    key_size = 1024
+
+    pool = RandomPool(key_size)
+    pool.stir()
+
+    rsakey = RSA.generate(key_size, pool.get_bytes)
+
+    print rsakey.d
+    print rsakey.exportKey('PEM')
+    print rsakey.publickey().exportKey('PEM')
+
+    #print keystring
+
+    #with open(os.getenv('HOME')+'/.ssh/id_rsa.pub') as keyfile:
+    #        keyfile.write(keystring)
+
 
 def dodo_create_server():
     conn = dodo.connect()
