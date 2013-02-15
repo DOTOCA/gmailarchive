@@ -33,15 +33,10 @@ def dodo_create_ssh_key():
 
     rsakey = RSA.generate(key_size, pool.get_bytes)
 
-    print rsakey.d
-    print rsakey.exportKey('PEM')
-    print rsakey.publickey().exportKey('PEM')
-
-    #print keystring
-
-    #with open(os.getenv('HOME')+'/.ssh/id_rsa.pub') as keyfile:
-    #        keyfile.write(keystring)
-
+    with open('private/gmailarchive_rsa', 'w') as k:
+        k.write(rsakey.exportKey('PEM'))
+    with open('private/gmailarchive_rsa.pub', 'w') as k:
+        k.write(rsakey.publickey().exportKey('OpenSSH'))
 
 def dodo_create_server():
     conn = dodo.connect()
