@@ -1,5 +1,10 @@
 # gmailarchive - Gmail Archiving for Backup and Analysis
 
+## TODO
+
+* creating backup
+* running backup in background
+
 ## Requirements
 * [fabric](http://docs.fabfile.org/en/1.5/)
 * [dodo](https://github.com/adamw523/dodo)
