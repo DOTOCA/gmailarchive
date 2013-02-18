@@ -15,6 +15,12 @@ def create_droplet(size=66, ssh_key=None, region=1, image=25306):
     dstart = conn.new_droplet(droplet_name, size, image, region, ssh_key)
     return droplet(dstart['id'])
 
+def destroy_droplet():
+    d = droplet()
+    if d:
+        conn = dodo.connect()
+        dstart = conn.destroy_droplet(d['id'])
+
 def droplet_ids():
     """
     return a list of droplets named <droplet_name>
