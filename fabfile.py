@@ -78,6 +78,9 @@ def add_my_key():
         pub = key.read()
         append('~/.ssh/authorized_keys', pub)
 
+#---------------------------
+# Vagrant
+#---------------------------
 
 #---------------------------
 # Gmail Backup
