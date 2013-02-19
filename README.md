@@ -2,7 +2,6 @@
 
 ## TODO
 
-* creating backup
 * running backup in background
 * running on Vagrant again
 
