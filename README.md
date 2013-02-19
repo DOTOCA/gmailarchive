@@ -4,6 +4,7 @@
 
 * creating backup
 * running backup in background
+* running on Vagrant again
 
 ## Requirements
 * [fabric](http://docs.fabfile.org/en/1.5/)
@@ -29,7 +30,7 @@ Install requiremnets
 $ sudo pip install -r requirements.txt
 ```
 
-Check out the available actions
+Check out the available commands
 
 ```
 $ fab -l
@@ -37,6 +38,7 @@ Available commands:
 
     add_my_key      Adds your id_rsa.pub to server
     docean          Set the environment to work with DigitalOcean
+    docean_backup   Create a backup of the DigitalOcean droplet
     docean_destroy  Delete the DigitalOcean droplet
     docean_start    Start the DigitalOcean server. Restored from backup if exists
     install         Install the gmailbackup scripts and all required software

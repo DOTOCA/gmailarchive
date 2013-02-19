@@ -51,6 +51,12 @@ def docean_start():
         time.sleep(10)
         droplet = digio.droplet(droplet['id'])
 
+def docean_backup():
+    """
+    Create a backup of the DigitalOcean droplet
+    """
+    digio.backup_droplet()
+
 def docean_destroy():
     """
     Delete the DigitalOcean droplet

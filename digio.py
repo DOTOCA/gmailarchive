@@ -10,6 +10,11 @@ def status():
 
 # Droplet
 
+def backup_droplet():
+    d = droplet()
+    conn = dodo.connect()
+    res = conn.snapshot_droplet(d['id'])
+
 def create_droplet(size=66, ssh_key=None, region=1, image=25306):
     conn = dodo.connect()
     dstart = conn.new_droplet(droplet_name, size, image, region, ssh_key)
