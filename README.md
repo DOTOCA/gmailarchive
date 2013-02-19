@@ -141,7 +141,17 @@ number of emails     : 74
 size on disk         : 796K
 ```
 
+Run a backup of your image
 
+```
+$ fab docean_backup
+```
+
+After a backup is done, you can destroy the server.
+
+```
+$ fab docean_destroy
+```
 ## License
 
 MIT
