@@ -77,6 +77,8 @@ def create_ssh_key():
     with open('private/gmailarchive_rsa.pub', 'w') as k:
         k.write(rsakey.publickey().exportKey('OpenSSH'))
 
+    run('chmod 600 private/gmailarchive_rsa*')
+
 def public_key():
     """
     Get the local public key string
