@@ -1,9 +1,11 @@
+from boto.s3.connection import S3Connection
 from fabric.api import *
 from fabric.colors import green as _green
 from fabric.colors import yellow as _yellow
 from fabric.colors import red as _red
 from fabric.contrib.files import append, exists
 
+import ConfigParser
 import fabric
 import os.path
 import sys
@@ -127,4 +129,40 @@ def status():
     print "backup running       : %s" % ('yes' if running else 'no')
     print "number of emails     : %s" % (num_emails)
     print "size on disk         : %s" % (size)
+
+#---------------------------
+# S3 Backup
+#---------------------------
+def _s3_read_config():
+    config = ConfigParser.ConfigParser()
+    config.read(['private/s3.cfg'])
+
+    # set values from config
+    env.aws_id = config.get('s3', 'aws_access_key_id')
+    env.aws_key = config.get('s3', 'aws_secret_access_key')
+    env.s3_bucket = config.get('s3', 's3_bucket')
+
+def s3_install():
+    sudo('apt-get -y install python-pip')
+    sudo('pip install boto boto_rsync')
+
+def s3_put():
+    _s3_read_config()
+    
+    # create bucket if it doesn't exist
+    conn = S3Connection(env.aws_id, env.aws_key)
+    conn.create_bucket(env.s3_bucket)
+
+    # sync MailStore directory to S3
+    run('boto-rsync -a %s -s %s /root/gmailbackup/gmail/MailStore \
+            s3://%s/MailStore' % (env.aws_id, env.aws_key, env.s3_bucket))
+
+def s3_get():
+    pass
+
+
+
+
+
+
 
