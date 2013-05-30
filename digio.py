@@ -26,6 +26,12 @@ def destroy_droplet():
         conn = dodo.connect()
         dstart = conn.destroy_droplet(d['id'])
 
+def shutdown_droplet():
+    d = droplet()
+    if d:
+        conn = dodo.connect()
+        dstart = conn.destroy_droplet(d['id'])
+
 def droplet_ids():
     """
     return a list of droplets named <droplet_name>

@@ -53,6 +53,13 @@ def docean_start():
         time.sleep(10)
         droplet = digio.droplet(droplet['id'])
 
+def docean_stop():
+    """
+    Shutdown the currently running droplet
+    """
+    digio.shutdown_droplet()
+
+
 def docean_backup():
     """
     Create a backup of the DigitalOcean droplet
@@ -158,7 +165,16 @@ def s3_put():
             s3://%s/MailStore' % (env.aws_id, env.aws_key, env.s3_bucket))
 
 def s3_get():
-    pass
+    _s3_read_config()
+    
+    # create bucket if it doesn't exist
+    conn = S3Connection(env.aws_id, env.aws_key)
+    conn.create_bucket(env.s3_bucket)
+
+    # sync MailStore directory to S3
+    run('boto-rsync -a %s -s %s s3://%s/MailStore \
+            /root/gmailbackup/gmail/MailStore' % (env.aws_id,
+                env.aws_key, env.s3_bucket))
 
 
 
